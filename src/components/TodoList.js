@@ -1,43 +1,22 @@
 import React from "react";
 
-const TodoList = ({ todos, handleComplete }) => {
+function TodoList({ todos, onComplete }) {
   return (
-    <div>
-      {todos.map(todo => (
-        <div
-          key={todo.id}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            marginBottom: "10px"
-          }}
-        >
-          <span
-            style={{
-              textDecoration: todo.completed ? "line-through" : "none",
-              flex: 1
-            }}
-          >
-            {todo.text}
-          </span>
-
-          {!todo.completed && (
-            <button
-              onClick={() => handleComplete(todo.id)}
-              style={{
-                padding: "5px 10px",
-                cursor: "pointer"
-              }}
-            >
-              Complete
-            </button>
+    <ul>
+      {todos.map((todo) => (
+        <li key={todo.id}>
+          {todo.text}{" "}
+          {!todo.completed ? (
+           <button data-testid={`btn-${todo.id}`} onClick={() => onComplete(todo.id)}>
+  Complete
+</button>
+          ) : (
+            <span data-testid={`todo-${todo.id}`}>Completed</span>
           )}
-
-          {todo.completed && <span style={{ color: "green" }}>✔ Completed</span>}
-        </div>
+        </li>
       ))}
-    </div>
+    </ul>
   );
-};
+}
 
 export default TodoList;
